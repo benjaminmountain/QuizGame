@@ -7,6 +7,6 @@ public class Quiz : MonoBehaviour {
     [SerializeField] TextMeshProUGUI questionText;
     [SerializeField] QuestionSO question;
     private void Start() {
-
+        questionText.text = question.GetQuestion();
     }
 }

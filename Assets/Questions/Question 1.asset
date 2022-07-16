@@ -15,3 +15,9 @@ MonoBehaviour:
   question: 'What are those?
 
 '
+  answers:
+  - Uhh Nikes?
+  - It's The Big Boy Sauce
+  - Boiiiing
+  - Crocodilo
+  correctAnswerIndex: 0
