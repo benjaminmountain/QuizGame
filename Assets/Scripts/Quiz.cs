@@ -12,6 +12,10 @@ public class Quiz : MonoBehaviour {
     [SerializeField] Sprite defaultAnswerSprite;
     [SerializeField] Sprite correctAnswerSprite;
     private void Start() {
+        DisplayQuestion();
+    }
+
+    void DisplayQuestion() {
         questionText.text = question.GetQuestion();
 
         for (int i = 0; i < answerButtons.Length; i++) {
@@ -32,6 +36,27 @@ public class Quiz : MonoBehaviour {
             questionText.text = "Sorry, the correct answer was:\n" + question.GetAnswer(correctAnswerIndex);
             Image buttonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();
             buttonImage.sprite = correctAnswerSprite;
+        }
+        SetButtonState(false);
+    }
+
+    void GetNextQuestion() {
+        SetButtonState(true);
+        SetDefaultButtonSprite();
+        DisplayQuestion();
+    }
+
+    void SetButtonState(bool state) {
+        for (int i = 0; i < answerButtons.Length; i++) {
+            Button button = answerButtons[i].GetComponent<Button>();
+            button.interactable = state;
+        }
+    }
+
+    void SetDefaultButtonSprite() {
+        for (int i = 0; i < answerButtons.Length; i++) {
+            Image buttonImage = answerButtons[i].GetComponent<Image>();
+            buttonImage.sprite = defaultAnswerSprite;
         }
     }
 }
