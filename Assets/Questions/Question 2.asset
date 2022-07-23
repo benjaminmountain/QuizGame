@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: Question 2
   m_EditorClassIdentifier: 
   question: Who is Dick Jones' best friend?
+  answers:
+  - Balls McGee
+  - Garglema Ballsack
+  - Deez Nuts
+  - Ben
+  correctAnswerIndex: 0

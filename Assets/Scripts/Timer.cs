@@ -12,6 +12,7 @@ public class Timer : MonoBehaviour {
     float timerValue;
 
     public bool getLoadNextQuestion() => loadNextQuestion;
+    public void setLoadNextQuestion(bool newValue) => loadNextQuestion = newValue;
     public bool getIsAnsweringQuestion() => isAnsweringQuestion;
     public float getFillFraction() => fillFraction;
     void Update() {
@@ -40,7 +41,6 @@ public class Timer : MonoBehaviour {
                 loadNextQuestion = true;
             }
         }
-        Debug.Log(isAnsweringQuestion + ": " + timerValue + " = " + fillFraction);
     }
 
 

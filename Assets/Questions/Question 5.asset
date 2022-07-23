@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: Question 5
   m_EditorClassIdentifier: 
   question: What is Dick Jones' favorite thing to do?
+  answers:
+  - LARP
+  - Post up
+  - Chill with Balls McGee
+  - Do hard drugs
+  correctAnswerIndex: 2

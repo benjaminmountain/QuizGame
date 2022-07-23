@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: Question 4
   m_EditorClassIdentifier: 
   question: Dick and balls...?
+  answers:
+  - WHAT??
+  - NO WAY
+  - GROSS!!
+  - Absolutely
+  correctAnswerIndex: 3
