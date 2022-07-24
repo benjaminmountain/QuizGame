@@ -11,10 +11,10 @@ public class Timer : MonoBehaviour {
     float fillFraction;
     float timerValue;
 
-    public bool getLoadNextQuestion() => loadNextQuestion;
-    public void setLoadNextQuestion(bool newValue) => loadNextQuestion = newValue;
-    public bool getIsAnsweringQuestion() => isAnsweringQuestion;
-    public float getFillFraction() => fillFraction;
+    public bool GetLoadNextQuestion() => loadNextQuestion;
+    public void SetLoadNextQuestion(bool newValue) => loadNextQuestion = newValue;
+    public bool GetIsAnsweringQuestion() => isAnsweringQuestion;
+    public float GetFillFraction() => fillFraction;
     void Update() {
         UpdateTimer();
     }

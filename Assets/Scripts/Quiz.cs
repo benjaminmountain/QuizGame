@@ -22,17 +22,30 @@ public class Quiz : MonoBehaviour {
     [Header("Timer")]
     [SerializeField] Image timerImage;
     Timer timer;
+
+    [Header("Scoring")]
+    [SerializeField] TextMeshProUGUI scoreText;
+    ScoreKeeper scoreKeeper;
+
+    [Header("ProgressBar")]
+    [SerializeField] Slider progressBar;
+    public bool isComplete;
+
+
     private void Start() {
         timer = FindObjectOfType<Timer>();
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
+        progressBar.maxValue = questions.Count;
+        progressBar.value = 0;
     }
 
     private void Update() {
-        timerImage.fillAmount = timer.getFillFraction();
-        if (timer.getLoadNextQuestion()) {
+        timerImage.fillAmount = timer.GetFillFraction();
+        if (timer.GetLoadNextQuestion()) {
             hasAnsweredEarly = false;
             GetNextQuestion();
-            timer.setLoadNextQuestion(false);
-        } else if (!hasAnsweredEarly && !timer.getIsAnsweringQuestion()) {
+            timer.SetLoadNextQuestion(false);
+        } else if (!hasAnsweredEarly && !timer.GetIsAnsweringQuestion()) {
             DisplayAnswer(-1);
             SetButtonState(false);
         }
@@ -53,6 +66,11 @@ public class Quiz : MonoBehaviour {
         DisplayAnswer(index);
         SetButtonState(false);
         timer.CancelTimer();
+        scoreText.text = "Score: " + scoreKeeper.CalculateScore() + "%";
+
+        if (progressBar.value == progressBar.maxValue) {
+            isComplete = true;
+        }
     }
 
     void DisplayAnswer(int index) {
@@ -61,6 +79,7 @@ public class Quiz : MonoBehaviour {
             questionText.text = "Correct";
             buttonImage = answerButtons[index].GetComponent<Image>();
             buttonImage.sprite = correctAnswerSprite;
+            scoreKeeper.IncrementCorrectAnswers();
         } else {
             correctAnswerIndex = currentQuestion.GetCorrectAnswerIndex();
             questionText.text = "Sorry, the correct answer was:\n" + currentQuestion.GetAnswer(correctAnswerIndex);
@@ -75,6 +94,8 @@ public class Quiz : MonoBehaviour {
             SetDefaultButtonSprite();
             GetRandomQuestion();
             DisplayQuestion();
+            progressBar.value++;
+            scoreKeeper.IncrementQuestionsSeen();
         }
 
     }
