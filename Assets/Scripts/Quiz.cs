@@ -13,7 +13,7 @@ public class Quiz : MonoBehaviour {
     [Header("Answers")]
     [SerializeField] GameObject[] answerButtons;
     int correctAnswerIndex;
-    bool hasAnsweredEarly;
+    bool hasAnsweredEarly = true;
 
     [Header("Button Colors")]
     [SerializeField] Sprite defaultAnswerSprite;
@@ -29,10 +29,12 @@ public class Quiz : MonoBehaviour {
 
     [Header("ProgressBar")]
     [SerializeField] Slider progressBar;
-    public bool isComplete;
+    bool isComplete;
+
+    public bool GetIsComplete() => isComplete;
 
 
-    private void Start() {
+    private void Awake() {
         timer = FindObjectOfType<Timer>();
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         progressBar.maxValue = questions.Count;
@@ -42,6 +44,10 @@ public class Quiz : MonoBehaviour {
     private void Update() {
         timerImage.fillAmount = timer.GetFillFraction();
         if (timer.GetLoadNextQuestion()) {
+            if (progressBar.value == progressBar.maxValue) {
+                isComplete = true;
+                return;
+            }
             hasAnsweredEarly = false;
             GetNextQuestion();
             timer.SetLoadNextQuestion(false);
@@ -56,7 +62,6 @@ public class Quiz : MonoBehaviour {
         questionText.text = currentQuestion.GetQuestion();
         for (int i = 0; i < answerButtons.Length; i++) {
             TextMeshProUGUI buttonText = answerButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-
             buttonText.text = currentQuestion.GetAnswer(i);
         }
     }
@@ -67,10 +72,6 @@ public class Quiz : MonoBehaviour {
         SetButtonState(false);
         timer.CancelTimer();
         scoreText.text = "Score: " + scoreKeeper.CalculateScore() + "%";
-
-        if (progressBar.value == progressBar.maxValue) {
-            isComplete = true;
-        }
     }
 
     void DisplayAnswer(int index) {
